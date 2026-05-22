@@ -21,7 +21,7 @@ pappwet yarn
 <tr>
 
 <td align="center">
-<img src="YOUR_IMAGE_LINK_HERE" width="120px" style="border-radius:50%" /><br>
+<img src="<img width="640" height="997" alt="640px-Made_in_Heaven_Infobox_Manga" src="https://github.com/user-attachments/assets/6e000bd6-38f1-4377-909e-f796a86537cc" />" width="120px" style="border-radius:50%" /><br>
 <b>Ablis, Margreleigne Melendrez</b>
 </td>
 
