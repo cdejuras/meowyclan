@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://i.pinimg.com/originals/8d/5f/5d/8d5f5d8f7f6b8f7c2a8f9f1e7c4d7b9.gif" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&height=220&text=🌸%20MeowyClan%20🌸&fontAlign=50&fontAlignY=40&color=F8A5C2,FFC0CB,FDE2E4&fontColor=ffffff&animation=fadeIn" width="100%" />
 
 # 🌸 MeowyClan 🌸
 
@@ -11,19 +11,15 @@
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=24&pause=1000&color=F8A5C2&center=true&vCenter=true&width=500&lines=Welcome+to+MeowyClan+🌸;BSCS251A+Term+Project" />
 
-<img src="https://media.tenor.com/9vRAkntogEMAAAAi/cherry-blossom.gif" width="120px"/>
-
 ---
 
-### 🌷 Hello Sir, this is our group! 🌷
+🌸 🌸 🌸
 
-<img src="https://media.tenor.com/0AVbKGY_MxMAAAAi/pink-divider.gif" width="300px"/>
+### 🌷 Hello Sir, this is our group! 🌷
 
 ---
 
 # 🌸 Members
-
-<div align="center">
 
 | 🌷 Name |
 |---|
@@ -32,32 +28,22 @@
 | **De Juras, Clint Norbert** | 
 | **Ovejera, Ziggy** | 
 
-</div>
-
 ---
 
 # 🖼️ Mga lalake ngayon 🌸
-
-<div align="center">
 
 <img width="45%" alt="group-photo-1" src="https://github.com/user-attachments/assets/8654e429-ead6-4832-9ba9-ef4355b08f15" />
 
 <img width="45%" alt="group-photo-2" src="https://github.com/user-attachments/assets/517ced03-09c8-4c4e-bc07-a8d0461284ed" />
 
-</div>
-
 ---
 
 # 🌸 Motto
-
-<div align="center">
 
 > *"subo motto"* 🌙
 
 🌸 🦋 🌸 🦋 🌸
 
-<img src="https://media.tenor.com/NM0w7k1G2K8AAAAi/sakura-anime.gif" width="150px"/>
-
-</div>
+<img src="https://media.tenor.com/NM0w7k1G2K8AAAAi/sakura-anime.gif" width="140px"/>
 
 </div>
