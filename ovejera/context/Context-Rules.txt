@@ -1,0 +1,47 @@
+* Single Responsibility Principle (SRP): one class = one reason to change
+
+* Open/Closed Principle (OCP): extend behavior without modifying existing code
+
+* Liskov Substitution Principle (LSP): subclasses must fully replace base classes safely
+
+* Interface Segregation Principle (ISP): use small, specific interfaces instead of large ones
+
+* Dependency Inversion Principle (DIP): depend on abstractions, not concrete implementations
+
+* Encapsulation: keep internal state private and expose behavior, not data
+
+* Composition over inheritance: prefer “has-a” over deep class hierarchies
+
+* High cohesion: related responsibilities stay in one class/module
+
+* Low coupling: minimize dependencies between classes/modules
+
+* Keep classes small and focused: avoid multi-responsibility “god classes”
+
+* Use interfaces for abstraction: decouple implementation from usage
+
+* Apply design patterns only when needed: Strategy, Factory, Builder, Repository, Adapter, Facade
+
+* Avoid overusing inheritance: prefer polymorphism and composition
+
+* Follow Law of Demeter: only interact with direct dependencies
+
+* Prefer immutability where possible: reduce side effects and bugs
+
+* Proper domain modeling: represent real business concepts clearly
+
+* Layered architecture: separate controller, service, repository, and domain logic
+
+* Avoid anemic domain models: put behavior inside domain objects when appropriate
+
+* Explicit error handling: use domain-specific exceptions
+
+* Replace conditionals with polymorphism: avoid large if-else chains
+
+* Minimize mutable state: reduces bugs and improves predictability
+
+* Make code testable by design: use dependency injection and modular structure
+
+* Avoid over-engineering: keep solutions simple and evolve them as needed
+
+* Use meaningful naming: clear, descriptive class and method names
