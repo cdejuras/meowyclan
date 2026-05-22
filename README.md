@@ -1,12 +1,16 @@
-# Meowyclan 🐱🦋
+# MeowyClan [![Section](https://img.shields.io/badge/Section-BSCS251A-green)](#)
 
-papwet yarn🦋🦋🦋
+[![Teacher](https://img.shields.io/badge/Teacher-Ramon%20Leonardo%20C.%20Capunpon-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/capunponrlc/)
 
-# Members :
-\\Ablis, Margreleigne Melendrez 
-\\Arban, Jhave 
-\\De Juras, Clint Norbert De Juras
-\\Ovejera, Ziggy
+### Hello Sir, this is our group!
 
-## ABOUT
-This repository contains the Meowyclan term project 
+---
+
+#### Members:
+1. Ablis, Margreleigne M.  
+2. Arban, Jhave P.  
+3. De Juras, Clint  
+4. Ovejera, Ziggy T.  
+
+---
+
