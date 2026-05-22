@@ -26,7 +26,8 @@ pappwet yarn
 </td>
 
 <td align="center">
-<img src="YOUR_IMAGE_LINK_HERE" width="120px" style="border-radius:50%" /><br>
+<img src="<img width="640" height="997" alt="image" src="https://github.com/user-attachments/assets/25f54483-09a3-4f4c-b0c7-169ceff64c9e" />
+" width="120px" style="border-radius:50%" /><br>
 <b>Arban, Jhave P.</b>
 </td>
 
