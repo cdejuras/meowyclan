@@ -7,7 +7,7 @@ pappwet yarn
 [![Section](https://img.shields.io/badge/Section-BSCS251A-ffb7d5?style=for-the-badge)](#)
 [![Teacher](https://img.shields.io/badge/Teacher-Ramon%20Leonardo%20C.%20Capunpon-f48fb1?style=for-the-badge&logo=github)](https://www.linkedin.com/in/capunponrlc/)
 
-<img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=24&pause=1000&color=F8A5C2&center=true&vCenter=true&width=500&lines=Welcome+to+MeowyClan+🌸;Mga+Papwet+🦋🐱;BSCS251A+Group+Project" />
+<img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=24&pause=1000&color=F8A5C2&center=true&vCenter=true&width=500&lines=Welcome+to+MeowyClan+🌸;BSCS251A+Term+Project" />
 
 ---
 
