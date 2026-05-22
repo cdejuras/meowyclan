@@ -17,32 +17,12 @@ pappwet yarn
 
 # 🌸 Members
 
-<table>
-<tr>
-
-<td align="center">
-<img src="<img width="640" height="997" alt="640px-Made_in_Heaven_Infobox_Manga" src="https://github.com/user-attachments/assets/6e000bd6-38f1-4377-909e-f796a86537cc" />" width="120px" style="border-radius:50%" /><br>
-<b>Ablis, Margreleigne Melendrez</b>
-</td>
-
-<td align="center">
-<img src="<img width="640" height="997" alt="image" src="https://github.com/user-attachments/assets/25f54483-09a3-4f4c-b0c7-169ceff64c9e" />
-" width="120px" style="border-radius:50%" /><br>
-<b>Arban, Jhave P.</b>
-</td>
-
-<td align="center">
-<img src="YOUR_IMAGE_LINK_HERE" width="120px" style="border-radius:50%" /><br>
-<b>De Juras, Clint Norbert</b>
-</td>
-
-<td align="center">
-<img src="YOUR_IMAGE_LINK_HERE" width="120px" style="border-radius:50%" /><br>
-<b>Ovejera, Ziggy</b>
-</td>
-
-</tr>
-</table>
+| 🌷 Name |
+|---|
+| **Ablis, Margreleigne Melendrez** |
+| **Arban, Jhave P.** | 
+| **De Juras, Clint Norbert** | 
+| **Ovejera, Ziggy** | 
 
 ---
 
@@ -60,5 +40,4 @@ pappwet yarn
 
 🌸 🦋 🌸 🦋 🌸
 
-</div><img width="716" height="1005" alt="D4C_Love_Train_Infobox_Manga" src="https://github.com/user-attachments/assets/644bc052-6bdc-4261-b13c-5261a41b68c6" />
-<img width="716" height="1005" alt="D4C_Love_Train_Infobox_Manga" src="https://github.com/user-attachments/assets/1f854135-c982-489a-9c70-9b416568a9c9" />
+</div>
