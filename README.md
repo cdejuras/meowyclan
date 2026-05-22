@@ -30,7 +30,7 @@ pappwet yarn
 
 ---
 
-# 🖼️ Mga Papwet 🌸
+# 🖼️ Mga lalake ngayon 🌸
 
 <div align="center">
 
