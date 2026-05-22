@@ -1,24 +1,29 @@
 <div align="center">
 
+<img src="https://i.pinimg.com/originals/8d/5f/5d/8d5f5d8f7f6b8f7c2a8f9f1e7c4d7b9.gif" width="100%" />
+
 # 🌸 MeowyClan 🌸
 
-pappwet yarn
+### ✨ pappwet yarn ✨
 
 [![Section](https://img.shields.io/badge/Section-BSCS251A-ffb7d5?style=for-the-badge)](#)
 [![Teacher](https://img.shields.io/badge/Teacher-Ramon%20Leonardo%20C.%20Capunpon-f48fb1?style=for-the-badge&logo=github)](https://www.linkedin.com/in/capunponrlc/)
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Poppins&size=24&pause=1000&color=F8A5C2&center=true&vCenter=true&width=500&lines=Welcome+to+MeowyClan+🌸;BSCS251A+Term+Project" />
 
+<img src="https://media.tenor.com/9vRAkntogEMAAAAi/cherry-blossom.gif" width="120px"/>
+
 ---
 
 ### 🌷 Hello Sir, this is our group! 🌷
+
+<img src="https://media.tenor.com/0AVbKGY_MxMAAAAi/pink-divider.gif" width="300px"/>
 
 ---
 
 # 🌸 Members
 
 <div align="center">
-
 
 | 🌷 Name |
 |---|
@@ -41,7 +46,6 @@ pappwet yarn
 
 </div>
 
-
 ---
 
 # 🌸 Motto
@@ -51,5 +55,9 @@ pappwet yarn
 > *"subo motto"* 🌙
 
 🌸 🦋 🌸 🦋 🌸
+
+<img src="https://media.tenor.com/NM0w7k1G2K8AAAAi/sakura-anime.gif" width="150px"/>
+
+</div>
 
 </div>
