@@ -2,7 +2,7 @@
 
 [![Teacher](https://img.shields.io/badge/Teacher-Ramon%20Leonardo%20C.%20Capunpon-blue?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/capunponrlc/)
 
-### Hello Sir, this is our group!
+### Hello Sir, this is our group! mga papwet 🦋🐱
 
 ---
 
