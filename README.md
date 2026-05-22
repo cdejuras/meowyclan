@@ -22,10 +22,10 @@ pappwet yarn
 
 | 🌷 Name |
 |---|
-| **Ablis, Margreleigne M.** |
+| **Ablis, Margreleigne Melendrez** |
 | **Arban, Jhave P.** | 
-| **De Juras, Clint** | 
-| **Ovejera, Ziggy T.** | 
+| **De Juras, Clint Norbert** | 
+| **Ovejera, Ziggy ** | 
 </div>
 
 ---
