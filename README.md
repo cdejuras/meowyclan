@@ -1,6 +1,8 @@
+<div align="center">
+
 # 🌸 MeowyClan 🌸
 
-### ✨ pappwet yarn ✨
+pappwet yarn
 
 [![Section](https://img.shields.io/badge/Section-BSCS251A-ffb7d5?style=for-the-badge)](#)
 [![Teacher](https://img.shields.io/badge/Teacher-Ramon%20Leonardo%20C.%20Capunpon-f48fb1?style=for-the-badge&logo=github)](https://www.linkedin.com/in/capunponrlc/)
@@ -9,20 +11,37 @@
 
 ---
 
-🌸 🌸 🌸
-
 ### 🌷 Hello Sir, this is our group! 🌷
 
 ---
 
 # 🌸 Members
 
-| 🌷 Name |
-|---|
-| **Ablis, Margreleigne Melendrez** |
-| **Arban, Jhave P.** | 
-| **De Juras, Clint Norbert** | 
-| **Ovejera, Ziggy** | 
+<table>
+<tr>
+
+<td align="center">
+<img src="YOUR_IMAGE_LINK_HERE" width="120px" style="border-radius:50%" /><br>
+<b>Ablis, Margreleigne Melendrez</b>
+</td>
+
+<td align="center">
+<img src="YOUR_IMAGE_LINK_HERE" width="120px" style="border-radius:50%" /><br>
+<b>Arban, Jhave P.</b>
+</td>
+
+<td align="center">
+<img src="YOUR_IMAGE_LINK_HERE" width="120px" style="border-radius:50%" /><br>
+<b>De Juras, Clint Norbert</b>
+</td>
+
+<td align="center">
+<img src="YOUR_IMAGE_LINK_HERE" width="120px" style="border-radius:50%" /><br>
+<b>Ovejera, Ziggy</b>
+</td>
+
+</tr>
+</table>
 
 ---
 
@@ -40,6 +59,5 @@
 
 🌸 🦋 🌸 🦋 🌸
 
-<img src="https://media.tenor.com/NM0w7k1G2K8AAAAi/sakura-anime.gif" width="140px"/>
-
-</div>
+</div><img width="716" height="1005" alt="D4C_Love_Train_Infobox_Manga" src="https://github.com/user-attachments/assets/644bc052-6bdc-4261-b13c-5261a41b68c6" />
+<img width="716" height="1005" alt="D4C_Love_Train_Infobox_Manga" src="https://github.com/user-attachments/assets/1f854135-c982-489a-9c70-9b416568a9c9" />
