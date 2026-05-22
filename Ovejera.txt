@@ -1,0 +1,968 @@
+# RoomieOS — Low Level Technical Requirements
+
+## Product Overview
+
+RoomieOS is a roommate management platform designed to reduce friction in shared living environments through automation, transparency, and AI-assisted coordination.
+
+The system centralizes:
+
+* shared expenses
+* chores
+* groceries
+* maintenance
+* communication
+* fairness analytics
+
+The platform uses AI to:
+
+* balance chores fairly
+* generate conflict resolution suggestions
+* identify unhealthy contribution patterns
+* automate reminders
+
+---
+
+# 1. Product Goals
+
+## Primary Goals
+
+* Reduce roommate conflicts
+* Improve payment accountability
+* Simplify household management
+* Increase transparency in shared responsibilities
+
+## Secondary Goals
+
+* Improve communication
+* Reduce emotional tension
+* Provide measurable fairness insights
+
+---
+
+# 2. Target Users
+
+## User Types
+
+### Standard Roommate
+
+Can:
+
+* manage bills
+* complete chores
+* join household groups
+* communicate
+* submit issues
+
+### Household Admin
+
+Can:
+
+* invite/remove roommates
+* configure rules
+* manage expense categories
+* configure fairness settings
+
+---
+
+# 3. Architecture Overview
+
+## Recommended Architecture
+
+Modular Monolith
+
+Reason:
+
+* Faster MVP development
+* Easier deployment
+* Lower infrastructure cost
+* Simpler domain coordination
+
+Future extraction candidates:
+
+* AI service
+* Notification service
+* Analytics service
+
+---
+
+# 4. Technology Stack
+
+## Backend
+
+* Java 21
+* Spring Boot 3
+* Spring Security
+* Spring Data JPA
+* PostgreSQL
+* Redis
+* Flyway
+* WebSocket/STOMP
+* OpenAI API
+
+## Frontend
+
+* React
+* TypeScript
+* Vite
+* React Query
+* Zustand
+* TailwindCSS
+* shadcn/ui
+
+## Infrastructure
+
+* Docker
+* Nginx
+* GitHub Actions
+* AWS/Railway/Render
+
+---
+
+# 5. High-Level System Modules
+
+| Module              | Responsibility                   |
+| ------------------- | -------------------------------- |
+| Auth Module         | Authentication and authorization |
+| Household Module    | Household/group management       |
+| Expense Module      | Shared bills and payments        |
+| Chore Module        | Chore assignment and tracking    |
+| Grocery Module      | Shared shopping lists            |
+| Chat Module         | Messaging and announcements      |
+| Maintenance Module  | Apartment issue tracking         |
+| Analytics Module    | Fairness scoring and insights    |
+| AI Module           | AI recommendations and balancing |
+| Notification Module | Push/email reminders             |
+
+---
+
+# 6. Core Domain Models
+
+## User
+
+```java
+class User {
+    UUID id;
+    String email;
+    String passwordHash;
+    String displayName;
+    UserStatus status;
+    Instant createdAt;
+}
+```
+
+---
+
+## Household
+
+```java
+class Household {
+    UUID id;
+    String name;
+    UUID createdBy;
+    HouseholdStatus status;
+    Instant createdAt;
+}
+```
+
+---
+
+## HouseholdMember
+
+```java
+class HouseholdMember {
+    UUID id;
+    UUID householdId;
+    UUID userId;
+    MemberRole role;
+    Instant joinedAt;
+}
+```
+
+---
+
+## Expense
+
+```java
+class Expense {
+    UUID id;
+    UUID householdId;
+    UUID paidBy;
+    String title;
+    BigDecimal amount;
+    ExpenseCategory category;
+    ExpenseStatus status;
+    LocalDate dueDate;
+}
+```
+
+---
+
+## ExpenseSplit
+
+```java
+class ExpenseSplit {
+    UUID id;
+    UUID expenseId;
+    UUID userId;
+    BigDecimal owedAmount;
+    PaymentStatus paymentStatus;
+}
+```
+
+---
+
+## Chore
+
+```java
+class Chore {
+    UUID id;
+    UUID householdId;
+    String title;
+    String description;
+    UUID assignedTo;
+    ChorePriority priority;
+    ChoreStatus status;
+    LocalDate dueDate;
+}
+```
+
+---
+
+## GroceryItem
+
+```java
+class GroceryItem {
+    UUID id;
+    UUID householdId;
+    String name;
+    Integer quantity;
+    Boolean purchased;
+}
+```
+
+---
+
+## MaintenanceRequest
+
+```java
+class MaintenanceRequest {
+    UUID id;
+    UUID householdId;
+    String title;
+    String description;
+    MaintenancePriority priority;
+    MaintenanceStatus status;
+}
+```
+
+---
+
+## ConflictReport
+
+```java
+class ConflictReport {
+    UUID id;
+    UUID householdId;
+    UUID reportedBy;
+    String message;
+    Boolean anonymous;
+    Instant createdAt;
+}
+```
+
+---
+
+# 7. Database Design
+
+## users
+
+| Column        | Type      |
+| ------------- | --------- |
+| id            | UUID      |
+| email         | VARCHAR   |
+| password_hash | VARCHAR   |
+| display_name  | VARCHAR   |
+| status        | VARCHAR   |
+| created_at    | TIMESTAMP |
+
+---
+
+## households
+
+| Column     | Type      |
+| ---------- | --------- |
+| id         | UUID      |
+| name       | VARCHAR   |
+| created_by | UUID      |
+| status     | VARCHAR   |
+| created_at | TIMESTAMP |
+
+---
+
+## household_members
+
+| Column       | Type      |
+| ------------ | --------- |
+| id           | UUID      |
+| household_id | UUID      |
+| user_id      | UUID      |
+| role         | VARCHAR   |
+| joined_at    | TIMESTAMP |
+
+---
+
+## expenses
+
+| Column       | Type    |
+| ------------ | ------- |
+| id           | UUID    |
+| household_id | UUID    |
+| paid_by      | UUID    |
+| title        | VARCHAR |
+| amount       | DECIMAL |
+| category     | VARCHAR |
+| status       | VARCHAR |
+| due_date     | DATE    |
+
+---
+
+## expense_splits
+
+| Column         | Type    |
+| -------------- | ------- |
+| id             | UUID    |
+| expense_id     | UUID    |
+| user_id        | UUID    |
+| owed_amount    | DECIMAL |
+| payment_status | VARCHAR |
+
+---
+
+## chores
+
+| Column       | Type    |
+| ------------ | ------- |
+| id           | UUID    |
+| household_id | UUID    |
+| title        | VARCHAR |
+| description  | TEXT    |
+| assigned_to  | UUID    |
+| priority     | VARCHAR |
+| status       | VARCHAR |
+| due_date     | DATE    |
+
+---
+
+# 8. Backend Architecture
+
+## Layered Structure
+
+```text
+controller
+service
+repository
+domain
+dto
+mapper
+config
+security
+integration
+```
+
+---
+
+# 9. Package Structure
+
+```text
+com.roomieos
+├── auth
+├── user
+├── household
+├── expense
+├── chore
+├── grocery
+├── maintenance
+├── chat
+├── analytics
+├── ai
+├── notification
+└── common
+```
+
+---
+
+# 10. Authentication Requirements
+
+## Features
+
+* JWT authentication
+* Refresh tokens
+* Role-based access
+* Household-level authorization
+
+## Security Rules
+
+* BCrypt password hashing
+* Email verification
+* Rate limiting
+* Device session tracking
+
+---
+
+# 11. Expense Module Requirements
+
+## Functional Requirements
+
+### Create Shared Expense
+
+Users can:
+
+* enter bill amount
+* define category
+* upload receipt image
+* split evenly or custom
+
+### Payment Tracking
+
+System must:
+
+* track unpaid balances
+* store payment timestamps
+* allow manual confirmation
+
+### Reminder System
+
+Automatic reminders:
+
+* 3 days before due date
+* on due date
+* overdue notifications
+
+---
+
+# 12. Chore Module Requirements
+
+## Smart Chore Assignment
+
+AI system should:
+
+* evaluate historical participation
+* evaluate workload balance
+* rotate undesirable chores
+* avoid repeated assignment bias
+
+## Chore States
+
+```text
+PENDING
+IN_PROGRESS
+COMPLETED
+OVERDUE
+SKIPPED
+```
+
+## Scheduling
+
+Supports:
+
+* recurring chores
+* weekly rotations
+* custom frequencies
+
+---
+
+# 13. Fairness Score System
+
+## Purpose
+
+Provide transparent contribution analytics.
+
+## Scoring Factors
+
+| Factor                       | Weight |
+| ---------------------------- | ------ |
+| Bill payments                | 35%    |
+| Chore completion             | 35%    |
+| Grocery contributions        | 15%    |
+| Communication responsiveness | 15%    |
+
+## AI Analysis
+
+System generates:
+
+* fairness trends
+* imbalance warnings
+* improvement suggestions
+
+---
+
+# 14. AI Module Requirements
+
+## Responsibilities
+
+* Chore balancing
+* Conflict mediation suggestions
+* Reminder optimization
+* Household health insights
+
+---
+
+## AI Provider Abstraction
+
+```java
+public interface AIProvider {
+    AIResponse generate(AIRequest request);
+}
+```
+
+Implementations:
+
+* OpenAIProvider
+* MockAIProvider
+
+Pattern:
+
+* Strategy Pattern
+
+---
+
+# 15. Anonymous Conflict Reporting
+
+## Functional Requirements
+
+Users can:
+
+* submit anonymous concerns
+* categorize issues
+* attach optional notes
+
+## AI Suggestions
+
+AI generates:
+
+* neutral phrasing
+* communication recommendations
+* actionable solutions
+
+---
+
+# 16. Chat System Requirements
+
+## Features
+
+* Household group chat
+* Announcement channels
+* System notifications
+* Read receipts
+
+## Technology
+
+* WebSockets
+* STOMP protocol
+
+---
+
+# 17. Shared Grocery List Requirements
+
+## Features
+
+* Shared editing
+* Quantity tracking
+* Purchase completion
+* Duplicate detection
+
+## Optional AI
+
+AI suggests:
+
+* recurring purchases
+* budget-friendly alternatives
+
+---
+
+# 18. Maintenance Tracking Requirements
+
+## Features
+
+* Submit maintenance issues
+* Attach photos
+* Assign severity
+* Track repair status
+
+## States
+
+```text
+OPEN
+IN_PROGRESS
+RESOLVED
+CLOSED
+```
+
+---
+
+# 19. Notification System
+
+## Channels
+
+* Push notifications
+* Email notifications
+* In-app notifications
+
+## Notification Events
+
+* Bill reminders
+* Chore deadlines
+* Grocery updates
+* Conflict alerts
+* Maintenance updates
+
+---
+
+# 20. Frontend Architecture
+
+## Pattern
+
+Feature-Based Architecture
+
+---
+
+# 21. Frontend Folder Structure
+
+```text
+src/
+├── app/
+├── features/
+│   ├── auth/
+│   ├── dashboard/
+│   ├── household/
+│   ├── expenses/
+│   ├── chores/
+│   ├── groceries/
+│   ├── chat/
+│   ├── analytics/
+│   └── maintenance/
+├── shared/
+└── routes/
+```
+
+---
+
+# 22. Frontend State Management
+
+## React Query
+
+Used for:
+
+* API data
+* caching
+* synchronization
+
+## Zustand
+
+Used for:
+
+* UI state
+* modal state
+* realtime indicators
+
+---
+
+# 23. Key UI Screens
+
+## Dashboard
+
+Displays:
+
+* upcoming bills
+* pending chores
+* fairness score
+* alerts
+
+---
+
+## Expense Screen
+
+Features:
+
+* split preview
+* payment status
+* expense analytics
+
+---
+
+## Chore Board
+
+Features:
+
+* Kanban-style view
+* assignment indicators
+* overdue tracking
+
+---
+
+## Fairness Analytics Screen
+
+Displays:
+
+* contribution charts
+* AI insights
+* historical trends
+
+---
+
+# 24. API Design
+
+## Authentication APIs
+
+### POST /api/auth/register
+
+### POST /api/auth/login
+
+---
+
+## Household APIs
+
+### POST /api/households
+
+### GET /api/households/{id}
+
+### POST /api/households/{id}/invite
+
+---
+
+## Expense APIs
+
+### POST /api/expenses
+
+### GET /api/expenses/{id}
+
+### POST /api/expenses/{id}/pay
+
+---
+
+## Chore APIs
+
+### POST /api/chores
+
+### PUT /api/chores/{id}/complete
+
+---
+
+## Conflict APIs
+
+### POST /api/conflicts
+
+### GET /api/conflicts
+
+---
+
+# 25. Validation Rules
+
+| Entity           | Rule          |
+| ---------------- | ------------- |
+| expense.amount   | > 0           |
+| chore.title      | required      |
+| grocery.quantity | >= 1          |
+| household.name   | max 120 chars |
+
+---
+
+# 26. Error Handling
+
+## Centralized Exception Handling
+
+```java
+@RestControllerAdvice
+class GlobalExceptionHandler
+```
+
+---
+
+## Standard Error Response
+
+```json
+{
+  "timestamp": "2026-05-22T10:00:00",
+  "code": "EXPENSE_NOT_FOUND",
+  "message": "Expense does not exist"
+}
+```
+
+---
+
+# 27. Design Patterns
+
+| Pattern    | Usage                   |
+| ---------- | ----------------------- |
+| Strategy   | AI provider selection   |
+| Factory    | Notification creation   |
+| Builder    | AI prompt generation    |
+| Observer   | Notification events     |
+| Repository | Database access         |
+| Facade     | Analytics orchestration |
+
+---
+
+# 28. Performance Requirements
+
+| Feature           | Target      |
+| ----------------- | ----------- |
+| Dashboard load    | <2 seconds  |
+| API response      | <300ms      |
+| Chat latency      | <500ms      |
+| AI recommendation | <10 seconds |
+
+---
+
+# 29. Scalability Considerations
+
+## Near-Term
+
+* Stateless backend
+* Redis caching
+* CDN frontend hosting
+
+## Long-Term
+
+Potential microservices:
+
+* AI service
+* Chat service
+* Notification service
+
+---
+
+# 30. Security Requirements
+
+## API Security
+
+* JWT validation
+* Role authorization
+* Input sanitization
+* CSRF protection
+
+## Privacy
+
+* Anonymous report isolation
+* Household data segregation
+* Secure media uploads
+
+---
+
+# 31. Testing Strategy
+
+## Backend
+
+### Unit Tests
+
+Tools:
+
+* JUnit 5
+* Mockito
+
+### Integration Tests
+
+Tools:
+
+* Testcontainers
+
+---
+
+## Frontend
+
+### Unit Tests
+
+* Vitest
+* React Testing Library
+
+### E2E Tests
+
+* Playwright
+
+---
+
+# 32. CI/CD Pipeline
+
+## Steps
+
+1. Install dependencies
+2. Run lint
+3. Run unit tests
+4. Run integration tests
+5. Build frontend
+6. Build backend
+7. Dockerize application
+
+---
+
+# 33. MVP Roadmap
+
+## Phase 1
+
+* Authentication
+* Household creation
+* Expense splitting
+* Chore management
+
+## Phase 2
+
+* Chat
+* Fairness analytics
+* Notifications
+
+## Phase 3
+
+* AI mediation
+* AI balancing
+* Advanced analytics
+
+---
+
+# 34. Technical Risks
+
+| Risk              | Mitigation             |
+| ----------------- | ---------------------- |
+| AI hallucinations | Prompt constraints     |
+| Notification spam | User preferences       |
+| Real-time scaling | WebSocket optimization |
+| Payment disputes  | Audit logging          |
+
+---
+
+# 35. Final Engineering Recommendations
+
+## Prioritize Simplicity
+
+Avoid premature microservices.
+
+## Strong Domain Boundaries
+
+Keep modules isolated.
+
+## AI as Enhancement
+
+Core features must still function without AI.
+
+## Maintain Auditability
+
+Track:
+
+* expense changes
+* assignment history
+* fairness calculations
+
+## Avoid Hidden Algorithms
+
+Fairness calculations should remain transparent to users.
+
+---
+
+# 36. Recommended MVP Focus
+
+The strongest MVP should focus on:
+
+1. Bill splitting
+2. Smart chores
+3. Fairness analytics
+4. Shared coordination
+
