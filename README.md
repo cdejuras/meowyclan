@@ -1,7 +1,3 @@
-<div align="center">
-
-<img src="https://capsule-render.vercel.app/api?type=waving&height=220&text=🌸%20MeowyClan%20🌸&fontAlign=50&fontAlignY=40&color=F8A5C2,FFC0CB,FDE2E4&fontColor=ffffff&animation=fadeIn" width="100%" />
-
 # 🌸 MeowyClan 🌸
 
 ### ✨ pappwet yarn ✨
