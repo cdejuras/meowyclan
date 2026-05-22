@@ -2,6 +2,8 @@
 
 # 🌸 MeowyClan 🌸
 
+pappwet yarn
+
 [![Section](https://img.shields.io/badge/Section-BSCS251A-ffb7d5?style=for-the-badge)](#)
 [![Teacher](https://img.shields.io/badge/Teacher-Ramon%20Leonardo%20C.%20Capunpon-f48fb1?style=for-the-badge&logo=github)](https://www.linkedin.com/in/capunponrlc/)
 
@@ -11,10 +13,6 @@
 
 ### 🌷 Hello Sir, this is our group! 🌷
 
-*"Code, coffee, and chaos."* ☕💻
-
-</div>
-
 ---
 
 # 🌸 Members
@@ -23,16 +21,16 @@
 
 | 🌷 Name | 💖 Role |
 |---|---|
-| **Ablis, Margreleigne M.** | Leader |
-| **Arban, Jhave P.** | Developer |
-| **De Juras, Clint** | Designer |
-| **Ovejera, Ziggy T.** | Documentation |
+| **Ablis, Margreleigne M.** 
+| **Arban, Jhave P.**
+| **De Juras, Clint** 
+| **Ovejera, Ziggy T.**
 
 </div>
 
 ---
 
-# 🖼️ Sakura Gallery
+# 🖼️ Mga Papwet 🌸
 
 <div align="center">
 
@@ -42,18 +40,6 @@
 
 </div>
 
----
-
-# 💻 Tech Stack
-
-<div align="center">
-
-![Java](https://img.shields.io/badge/Java-ffc1da?style=for-the-badge&logo=openjdk&logoColor=white)
-![Python](https://img.shields.io/badge/Python-f8a5c2?style=for-the-badge&logo=python&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-f48fb1?style=for-the-badge&logo=github&logoColor=white)
-![VSCode](https://img.shields.io/badge/VSCode-ffb7d5?style=for-the-badge&logo=visualstudiocode&logoColor=white)
-
-</div>
 
 ---
 
