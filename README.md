@@ -19,13 +19,13 @@ pappwet yarn
 
 <div align="center">
 
-| 🌷 Name 
-|
-| **Ablis, Margreleigne M.** 
-| **Arban, Jhave P.**
-| **De Juras, Clint** 
-| **Ovejera, Ziggy T.**
 
+| 🌷 Name |
+|---|
+| **Ablis, Margreleigne M.** |
+| **Arban, Jhave P.** | 
+| **De Juras, Clint** | 
+| **Ovejera, Ziggy T.** | 
 </div>
 
 ---
