@@ -19,8 +19,8 @@ pappwet yarn
 
 <div align="center">
 
-| 🌷 Name | 💖 Role |
-|---|---|
+| 🌷 Name 
+|
 | **Ablis, Margreleigne M.** 
 | **Arban, Jhave P.**
 | **De Juras, Clint** 
