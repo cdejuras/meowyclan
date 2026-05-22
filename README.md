@@ -47,7 +47,7 @@ pappwet yarn
 
 <div align="center">
 
-> *"Sleep is temporary, grades are forever."* 🌙
+> *"subo motto"* 🌙
 
 🌸 🦋 🌸 🦋 🌸
 
