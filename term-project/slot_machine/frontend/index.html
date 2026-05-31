@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucky Spins — Slot Machine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Boogaloo&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ── CSS Variables ── */
+    :root {
+      --gold: #FFD700;
+      --gold-dark: #C8A200;
+      --red: #E63946;
+      --green: #2DC653;
+      --bg: #0a0a14;
+      --panel: #12122a;
+      --panel2: #1a1a38;
+      --border: #2e2e60;
+      --text: #f0e6ff;
+      --muted: #8888bb;
+      --win-glow: 0 0 24px #FFD700, 0 0 60px #FFD70066;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      background-image:
+        radial-gradient(ellipse at 20% 20%, #1a0a3a 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, #0a1a3a 0%, transparent 50%);
+    }
+
+    h1 {
+      font-family: 'Boogaloo', cursive;
+      font-size: 3rem;
+      color: var(--gold);
+      text-shadow: 0 0 20px #FFD70088, 3px 3px 0 #8B6000;
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+
+    .subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 24px; }
+
+    /* ── Layout ── */
+    .app { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 18px; }
+
+    .row { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* ── Panels ── */
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      flex: 1;
+    }
+
+    .panel h2 {
+      font-family: 'Boogaloo', cursive;
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── Form inputs ── */
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .field label { font-size: 0.8rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+    input[type=text], input[type=number] {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 10px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s;
+    }
+
+    input:focus { border-color: var(--gold); }
+
+    /* ── Buttons ── */
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 18px;
+      font-family: 'Boogaloo', cursive;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.2s, opacity 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .btn:active { transform: scale(0.96); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    .btn-gold {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: #1a0a00;
+      font-weight: 800;
+      box-shadow: 0 4px 14px #FFD70044;
+    }
+    .btn-gold:hover:not(:disabled) { box-shadow: 0 6px 20px #FFD70077; }
+
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-red { background: var(--red); color: #fff; }
+    .btn-muted { background: var(--panel2); color: var(--muted); border: 1px solid var(--border); }
+
+    .btn-wide { width: 100%; margin-top: 4px; }
+
+    /* ── Slot Machine ── */
+    .machine {
+      background: linear-gradient(160deg, #1e1e42, #12122a);
+      border: 2px solid var(--gold-dark);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      box-shadow: 0 0 40px #FFD70022;
+      min-width: 320px;
+    }
+
+    .balance-display {
+      font-family: 'Boogaloo', cursive;
+      font-size: 2rem;
+      color: var(--gold);
+      text-shadow: var(--win-glow);
+      margin-bottom: 20px;
+    }
+
+    .reels {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .reel {
+      width: 90px;
+      height: 90px;
+      background: var(--panel2);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      transition: transform 0.1s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reel.spinning {
+      animation: spinReel 0.08s linear infinite;
+    }
+
+    .reel.win-reel {
+      border-color: var(--gold);
+      box-shadow: var(--win-glow);
+      animation: winPulse 0.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes spinReel {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes winPulse {
+      from { transform: scale(1); }
+      to   { transform: scale(1.07); }
+    }
+
+    /* Bet row */
+    .bet-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .bet-row label { color: var(--muted); font-size: 0.85rem; font-weight: 700; }
+    .bet-row input { width: 110px; text-align: center; }
+
+    /* Quick bet buttons */
+    .quick-bets {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .quick-bets button {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--muted);
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .quick-bets button:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Spin button */
+    .btn-spin {
+      font-size: 1.5rem;
+      padding: 14px 48px;
+      border-radius: 50px;
+      width: 100%;
+      background: linear-gradient(135deg, #FFD700, #FF8C00);
+      color: #1a0a00;
+      font-family: 'Boogaloo', cursive;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 20px #FF8C0066;
+      transition: transform 0.1s, box-shadow 0.2s, opacity 0.2s;
+      letter-spacing: 1px;
+    }
+    .btn-spin:hover:not(:disabled) { box-shadow: 0 8px 28px #FFD700aa; transform: translateY(-2px); }
+    .btn-spin:active { transform: scale(0.96); }
+    .btn-spin:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Message banner */
+    #spinMessage {
+      min-height: 36px;
+      border-radius: 10px;
+      padding: 8px 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 14px;
+      transition: opacity 0.3s;
+      text-align: center;
+    }
+    #spinMessage.win  { background: #1a3a1a; color: var(--green); border: 1px solid var(--green); }
+    #spinMessage.lose { background: #2a1a1a; color: var(--muted); border: 1px solid var(--border); }
+    #spinMessage.jackpot {
+      background: #2a1a00;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      box-shadow: var(--win-glow);
+      animation: flash 0.4s ease-in-out 3;
+    }
+    @keyframes flash { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* Stats row */
+    .stats-row {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 14px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      text-align: center;
+      flex: 1;
+      min-width: 70px;
+    }
+    .stat-box .val { font-family: 'Boogaloo', cursive; font-size: 1.4rem; color: var(--gold); }
+    .stat-box .lbl { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Leaderboard */
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .leaderboard-table th {
+      color: var(--gold);
+      font-family: 'Boogaloo', cursive;
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      font-weight: 400;
+      font-size: 0.95rem;
+    }
+    .leaderboard-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #1e1e3a;
+      color: var(--text);
+    }
+    .leaderboard-table tr:hover td { background: var(--panel2); }
+    .rank-1 td:first-child { color: var(--gold); font-weight: 800; }
+    .rank-2 td:first-child { color: #C0C0C0; }
+    .rank-3 td:first-child { color: #CD7F32; }
+
+    /* Symbol manager */
+    .symbol-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .symbol-item {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--panel2);
+      font-size: 1.8rem;
+    }
+
+    .symbol-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    .symbol-item .del-btn {
+      position: absolute;
+      top: 2px; right: 2px;
+      background: #E63946cc;
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 10px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+    .symbol-item:hover .del-btn { display: flex; }
+
+    /* Notification toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 1000;
+      max-width: 300px;
+    }
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.success { border-color: var(--green); color: var(--green); }
+    #toast.error   { border-color: var(--red); color: var(--red); }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+    .tab {
+      padding: 6px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+    .tab.active { background: var(--gold); color: #1a0a00; border-color: var(--gold); }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Odds info */
+    .odds-box {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-top: 12px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .odds-box strong { color: var(--text); }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      h1 { font-size: 2.2rem; }
+      .machine { padding: 18px; }
+      .reel { width: 72px; height: 72px; font-size: 2.4rem; }
+      .row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎰 Lucky Spins</h1>
+  <p class="subtitle">PHP Slot Machine — Min deposit ₱100 · Max deposit ₱10,000</p>
+
+  <div class="app">
+
+    <!-- Top Row: Session Setup + Machine -->
+    <div class="row">
+
+      <!-- Left: Session Setup -->
+      <div class="panel" style="max-width:280px; min-width:240px;">
+        <h2>🎮 New Session</h2>
+        <div class="field">
+          <label>Player Name</label>
+          <input type="text" id="playerName" placeholder="Enter your name" />
+        </div>
+        <div class="field">
+          <label>Initial Deposit (₱)</label>
+          <input type="number" id="initDeposit" value="500" min="100" max="10000" step="100" />
+        </div>
+        <button class="btn btn-gold btn-wide" onclick="createSession()">Start Session</button>
+
+        <div id="sessionInfo" style="display:none; margin-top:16px;">
+          <div style="border-top:1px solid var(--border); padding-top:14px;">
+            <h2>💳 Payment</h2>
+            <div class="tabs">
+              <button class="tab active" onclick="switchTab('deposit')">Deposit</button>
+              <button class="tab" onclick="switchTab('withdraw')">Withdraw</button>
+            </div>
+
+            <div id="tab-deposit" class="tab-content active">
+              <div class="field">
+                <label>Amount (₱100–₱10,000)</label>
+                <input type="number" id="depositAmount" value="200" min="100" max="10000" step="100" />
+              </div>
+              <button class="btn btn-green btn-wide" onclick="doDeposit()">+ Deposit</button>
+            </div>
+
+            <div id="tab-withdraw" class="tab-content">
+              <div class="field">
+                <label>Amount (₱)</label>
+                <input type="number" id="withdrawAmount" value="100" min="1" step="1" />
+              </div>
+              <button class="btn btn-red btn-wide" onclick="doWithdraw()">− Withdraw</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Slot Machine -->
+      <div class="machine" style="flex:1;">
+        <div id="welcomeMsg" style="color:var(--muted); padding:30px 0; font-size:1.1rem;">
+          👆 Start a session to play!
+        </div>
+
+        <div id="gameArea" style="display:none;">
+          <div class="balance-display">₱ <span id="balanceDisplay">0.00</span></div>
+
+          <div class="reels">
+            <div class="reel" id="reel0">🍒</div>
+            <div class="reel" id="reel1">🍋</div>
+            <div class="reel" id="reel2">🍊</div>
+          </div>
+
+          <div class="quick-bets">
+            <span style="color:var(--muted);font-size:0.8rem;align-self:center;">Bet:</span>
+            <button onclick="setBet(10)">₱10</button>
+            <button onclick="setBet(25)">₱25</button>
+            <button onclick="setBet(50)">₱50</button>
+            <button onclick="setBet(100)">₱100</button>
+            <button onclick="setBet(200)">₱200</button>
+          </div>
+
+          <div class="bet-row">
+            <label>Bet Amount ₱</label>
+            <input type="number" id="betAmount" value="10" min="1" step="1" />
+          </div>
+
+          <button class="btn-spin" id="spinBtn" onclick="doSpin()">🎰 SPIN</button>
+
+          <div id="spinMessage" class="lose" style="opacity:0;"></div>
+
+          <div class="stats-row">
+            <div class="stat-box"><div class="val" id="statSpins">0</div><div class="lbl">Spins</div></div>
+            <div class="stat-box"><div class="val" id="statWins">0</div><div class="lbl">Wins</div></div>
+            <div class="stat-box"><div class="val" id="statRate">0%</div><div class="lbl">Win Rate</div></div>
+          </div>
+
+          <div class="odds-box">
+            🎲 <strong>Odds:</strong> Jackpot (3 match) → <strong>5× payout</strong> &nbsp;|&nbsp;
+            Two match → <strong>1.5× payout</strong> &nbsp;|&nbsp;
+            No match → <strong>lose bet</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Leaderboard + Symbol Manager -->
+    <div class="row">
+
+      <!-- Leaderboard -->
+      <div class="panel" style="flex:1.2;">
+        <h2>🏆 Leaderboard</h2>
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Player</th>
+              <th>Spins</th>
+              <th>Wins</th>
+              <th>Win Rate</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">No sessions yet</td></tr>
+          </tbody>
+        </table>
+        <button class="btn btn-muted" style="margin-top:10px;font-size:0.8rem;" onclick="loadLeaderboard()">↻ Refresh</button>
+      </div>
+
+      <!-- Symbol Manager -->
+      <div class="panel" style="min-width:240px;">
+        <h2>🎨 Symbols</h2>
+        <p style="color:var(--muted);font-size:0.8rem;margin-bottom:10px;">
+          Default symbols shown below. Upload your own images (JPG/PNG/GIF) to customize the reels.
+        </p>
+
+        <div class="symbol-grid" id="defaultSymbols">
+          <div class="symbol-item">🍒</div>
+          <div class="symbol-item">🍋</div>
+          <div class="symbol-item">🍊</div>
+          <div class="symbol-item">🍇</div>
+          <div class="symbol-item">⭐</div>
+          <div class="symbol-item">💎</div>
+          <div class="symbol-item">7️⃣</div>
+          <div class="symbol-item">🔔</div>
+        </div>
+
+        <div style="border-top:1px solid var(--border);margin:12px 0;padding-top:12px;">
+          <p style="color:var(--muted);font-size:0.8rem;margin-bottom:8px;">📤 Upload custom image symbol:</p>
+          <input type="file" id="symbolFile" accept="image/*" style="font-size:0.8rem;color:var(--muted);width:100%;margin-bottom:8px;" />
+          <button class="btn btn-gold btn-wide" onclick="uploadSymbol()">Upload Symbol</button>
+        </div>
+
+        <div id="customSymbols" class="symbol-grid" style="margin-top:8px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    // ── State ──
+    const API = 'http://localhost:8080/api/slots';
+    let sessionId = null;
+
+    // ── Helpers ──
+    function toast(msg, type = 'success') {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.className = 'show ' + type;
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => { el.className = ''; }, 3000);
+    }
+
+    function setBalance(val) {
+      document.getElementById('balanceDisplay').textContent = parseFloat(val).toFixed(2);
+    }
+
+    function setBet(val) {
+      document.getElementById('betAmount').value = val;
+    }
+
+    function switchTab(name) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + name).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // ── Session ──
+    async function createSession() {
+      const name = document.getElementById('playerName').value.trim();
+      const deposit = parseFloat(document.getElementById('initDeposit').value);
+
+      if (!name) { toast('Please enter your name', 'error'); return; }
+      if (!deposit || deposit < 100 || deposit > 10000) {
+        toast('Initial deposit must be ₱100 – ₱10,000', 'error'); return;
+      }
+
+      try {
+        const res = await fetch(`${API}/session?playerName=${encodeURIComponent(name)}&initialDeposit=${deposit}`, {
+          method: 'POST'
+        });
+        const data = await res.json();
+        if (!res.ok) { toast(data.error || 'Error creating session', 'error'); return; }
+
+        sessionId = data.id;
+        document.getElementById('welcomeMsg').style.display = 'none';
+        document.getElementById('gameArea').style.display = 'block';
+        document.getElementById('sessionInfo').style.display = 'block';
+        setBalance(data.balance);
+        updateStats(data.spinCount, data.winCount, data.winRate);
+        toast(`Welcome, ${data.playerName}! Session started 🎉`);
+        loadLeaderboard();
+      } catch (e) {
+        toast('Cannot connect to server. Is the backend running?', 'error');
+      }
+    }
+
+    // ── Spin ──
+    async function doSpin() {
+      if (!sessionId) return;
+      const bet = parseFloat(document.getElementById('betAmount').value);
+      if (!bet || bet <= 0) { toast('Enter a valid bet amount', 'error'); return; }
+
+      const spinBtn = document.getElementById('spinBtn');
+      spinBtn.disabled = true;
+
+      // Start spinning animation
+      for (let i = 0; i < 3; i++) {
+        document.getElementById('reel' + i).classList.add('spinning');
+        document.getElementById('reel' + i).classList.remove('win-reel');
+      }
+
+      try {
+        const res = await fetch(`${API}/session/${sessionId}/spin`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ betAmount: bet })
+        });
+        const data = await res.json();
+
+        if (!res.ok) { toast(data.error || 'Spin error', 'error'); spinBtn.disabled = false; return; }
+
+        // Animate stop reels one by one
+        const symbols = data.symbols;
+        for (let i = 0; i < 3; i++) {
+          await delay(350 + i * 200);
+          const reel = document.getElementById('reel' + i);
+          reel.classList.remove('spinning');
+          reel.textContent = symbols[i];
+          if (data.win) reel.classList.add('win-reel');
+        }
+
+        // Update UI
+        setBalance(data.newBalance);
+        updateStats(data.spinCount, data.winCount, data.winRate);
+
+        const msgEl = document.getElementById('spinMessage');
+        msgEl.textContent = data.message;
+        msgEl.className = data.winType === 'JACKPOT' ? 'jackpot' : data.win ? 'win' : 'lose';
+        msgEl.style.opacity = '1';
+
+        loadLeaderboard();
+      } catch (e) {
+        toast('Connection error', 'error');
+      } finally {
+        spinBtn.disabled = false;
+      }
+    }
+
+    function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    function updateStats(spins, wins, rate) {
+      document.getElementById('statSpins').textContent = spins;
+      document.getElementById('statWins').textContent = wins;
+      document.getElementById('statRate').textContent = parseFloat(rate).toFixed(1) + '%';
+    }
+
+    // ── Deposit / Withdraw ──
+    async function doDeposit() {
+      if (!sessionId) { toast('Start a session first', 'error'); return; }
+      const amount = parseFloat(document.getElementById('depositAmount').value);
+      try {
+        const res = await fetch(`${API}/session/${sessionId}/deposit?amount=${amount}`, { method: 'POST' });
+        const data = await res.json();
+        if (!res.ok) { toast(data.error || 'Deposit failed', 'error'); return; }
+        setBalance(data.balance);
+        toast(`₱${amount.toFixed(2)} deposited ✅`);
+      } catch (e) { toast('Connection error', 'error'); }
+    }
+
+    async function doWithdraw() {
+      if (!sessionId) { toast('Start a session first', 'error'); return; }
+      const amount = parseFloat(document.getElementById('withdrawAmount').value);
+      try {
+        const res = await fetch(`${API}/session/${sessionId}/withdraw?amount=${amount}`, { method: 'POST' });
+        const data = await res.json();
+        if (!res.ok) { toast(data.error || 'Withdrawal failed', 'error'); return; }
+        setBalance(data.balance);
+        toast(`₱${amount.toFixed(2)} withdrawn ✅`);
+      } catch (e) { toast('Connection error', 'error'); }
+    }
+
+    // ── Leaderboard ──
+    async function loadLeaderboard() {
+      try {
+        const res = await fetch(`${API}/sessions`);
+        const sessions = await res.json();
+        const tbody = document.getElementById('leaderboardBody');
+        if (!sessions.length) {
+          tbody.innerHTML = '<tr><td colspan="6" style="color:var(--muted);text-align:center;padding:20px;">No sessions yet</td></tr>';
+          return;
+        }
+        tbody.innerHTML = sessions.map((s, i) => `
+          <tr class="rank-${i+1}">
+            <td>${i+1}</td>
+            <td>${escHtml(s.playerName)}</td>
+            <td>${s.spinCount}</td>
+            <td>${s.winCount}</td>
+            <td>${parseFloat(s.winRate).toFixed(1)}%</td>
+            <td>₱${parseFloat(s.balance).toFixed(2)}</td>
+          </tr>
+        `).join('');
+      } catch (_) { /* backend may not be up */ }
+    }
+
+    function escHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // ── Symbol Manager ──
+    async function uploadSymbol() {
+      const file = document.getElementById('symbolFile').files[0];
+      if (!file) { toast('Select a file first', 'error'); return; }
+
+      const formData = new FormData();
+      formData.append('file', file);
+      try {
+        const res = await fetch(`${API}/symbols/upload`, { method: 'POST', body: formData });
+        const data = await res.json();
+        if (!res.ok) { toast(data.error || 'Upload failed', 'error'); return; }
+        toast('Symbol uploaded! 🎨');
+        loadCustomSymbols();
+      } catch (e) { toast('Upload error', 'error'); }
+    }
+
+    async function loadCustomSymbols() {
+      try {
+        const res = await fetch(`${API}/symbols`);
+        const urls = await res.json();
+        const grid = document.getElementById('customSymbols');
+        grid.innerHTML = urls.map(url => `
+          <div class="symbol-item">
+            <img src="http://localhost:8080${url}" alt="symbol" />
+            <button class="del-btn" onclick="deleteSymbol('${url}', this)">✕</button>
+          </div>
+        `).join('');
+      } catch (_) { /* ignore */ }
+    }
+
+    async function deleteSymbol(url, btn) {
+      try {
+        await fetch(`${API}/symbols`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+        btn.closest('.symbol-item').remove();
+        toast('Symbol removed');
+      } catch (e) { toast('Error removing symbol', 'error'); }
+    }
+
+    // ── Init ──
+    loadLeaderboard();
+    loadCustomSymbols();
+  </script>
+</body>
+</html>
